@@ -9,7 +9,8 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.tejcodes.learnapp"
     },
     "android": {
       "adaptiveIcon": {
@@ -20,7 +21,9 @@
       },
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,
-      "package": "com.tejcodes.learnapp"
+      "package": "com.tejcodes.learnapp",
+     "minSdkVersion": 26,
+      "versionCode": 1
     },
     "web": {
       "output": "static",
