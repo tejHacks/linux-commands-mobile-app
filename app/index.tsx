@@ -8,7 +8,7 @@ export default function Index() {
   return (
     <SafeAreaView className="flex-1 bg-gray-900">
       <View className="flex-1 items-center justify-center px-4">
-        <Image
+        <Image 
           source={require('../assets/images/download.png')}
           className="w-40 h-40 mb-6"
           resizeMode="contain"

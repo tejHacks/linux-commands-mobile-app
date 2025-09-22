@@ -5,6 +5,7 @@ import { StatusBar } from 'expo-status-bar';
 import { Ionicons } from '@expo/vector-icons';
 import Navbar from '../components/Navbar';
 
+// linux commands are stored in an array of Objects
 const LINUX_COMMANDS = [
   // System Information (25)
   { name: 'arch', description: 'Print machine architecture', example: 'arch' },
@@ -261,6 +262,125 @@ const LINUX_COMMANDS = [
   { name: 'ctrl + d', description: 'End input/EOF', example: 'Ctrl+D' },
   { name: 'ctrl + z', description: 'Suspend process', example: 'Ctrl+Z' },
   { name: 'jobs -l', description: 'List jobs with PIDs', example: 'jobs -l' },
+  // System Information (10 new)
+  { name: 'lscpu -e', description: 'Display CPU info in table format', example: 'lscpu -e' },
+  { name: 'dmidecode', description: 'Show hardware info from BIOS', example: 'dmidecode -t memory' },
+  { name: 'lsmod', description: 'List loaded kernel modules', example: 'lsmod' },
+  { name: 'uname -v', description: 'Show kernel version', example: 'uname -v' },
+  { name: 'cat /etc/os-release', description: 'Display OS information', example: 'cat /etc/os-release' },
+  { name: 'lsb_release -a', description: 'Show LSB and distribution info', example: 'lsb_release -a' },
+  { name: 'iostat', description: 'Report CPU and I/O statistics', example: 'iostat' },
+  { name: 'sar', description: 'Collect system activity info', example: 'sar -u 1 3' },
+  { name: 'free -m', description: 'Show memory in MB', example: 'free -m' },
+  { name: 'vmstat -s', description: 'Display memory statistics', example: 'vmstat -s' },
+
+  // File and Directory Management (15 new)
+  { name: 'find -type d', description: 'Search for directories only', example: 'find / -type d -name "logs"' },
+  { name: 'find -type f', description: 'Search for files only', example: 'find / -type f -name "*.log"' },
+  { name: 'ls -R', description: 'List directories recursively', example: 'ls -R' },
+  { name: 'touch -t', description: 'Set file timestamp', example: 'touch -t 202509221230 file1' },
+  { name: 'chmod -R', description: 'Change permissions recursively', example: 'chmod -R 755 dir' },
+  { name: 'chown -R', description: 'Change owner recursively', example: 'chown -R user1 dir' },
+  { name: 'cat -n', description: 'Number lines in file', example: 'cat -n file1' },
+  { name: 'tail -f', description: 'Follow file updates', example: 'tail -f log.txt' },
+  { name: 'cp -p', description: 'Preserve file attributes', example: 'cp -p file1 file2' },
+  { name: 'mv -i', description: 'Prompt before overwrite', example: 'mv -i file1 /tmp/' },
+  { name: 'rm -i', description: 'Prompt before removal', example: 'rm -i file1' },
+  { name: 'du -c', description: 'Show total size', example: 'du -c dir' },
+  { name: 'ls -i', description: 'Show inode numbers', example: 'ls -i' },
+  { name: 'file -i', description: 'Show MIME type', example: 'file -i file1' },
+  { name: 'tree -d', description: 'Show directories only', example: 'tree -d' },
+
+  // Process Management (10 new)
+  { name: 'ps -ef', description: 'Show all processes in full format', example: 'ps -ef' },
+  { name: 'kill -9', description: 'Force kill a process', example: 'kill -9 1234' },
+  { name: 'pkill -u', description: 'Kill processes by user', example: 'pkill -u user1' },
+  { name: 'top -u', description: 'Show processes by user', example: 'top -u user1' },
+  { name: 'htop -u', description: 'Filter processes by user in htop', example: 'htop -u user1' },
+  { name: 'nice -n -10', description: 'Run with high priority', example: 'nice -n -10 command' },
+  { name: 'ionice', description: 'Set I/O scheduling priority', example: 'ionice -c3 command' },
+  { name: 'pidstat', description: 'Monitor process statistics', example: 'pidstat 1' },
+  { name: 'lsof -p', description: 'List files opened by PID', example: 'lsof -p 1234' },
+  { name: 'killall -9', description: 'Force kill by name', example: 'killall -9 firefox' },
+
+  // Networking (15 new)
+  { name: 'ip link', description: 'Show network interfaces', example: 'ip link' },
+  { name: 'ip route', description: 'Show routing table', example: 'ip route' },
+  { name: 'netstat -i', description: 'Show network interfaces', example: 'netstat -i' },
+  { name: 'ss -l', description: 'List listening sockets', example: 'ss -l' },
+  { name: 'curl -I', description: 'Fetch HTTP headers', example: 'curl -I http://example.com' },
+  { name: 'wget -r', description: 'Download recursively', example: 'wget -r http://example.com' },
+  { name: 'ssh -p', description: 'SSH to specific port', example: 'ssh -p 2222 user@host' },
+  { name: 'scp -r', description: 'Copy directories securely', example: 'scp -r dir user@host:/path' },
+  { name: 'rsync -P', description: 'Show progress during sync', example: 'rsync -P file user@host:/path' },
+  { name: 'nmap -p', description: 'Scan specific ports', example: 'nmap -p 80,443 host' },
+  { name: 'tcpdump -c', description: 'Capture specific packet count', example: 'tcpdump -c 10' },
+  { name: 'ifup', description: 'Bring interface up', example: 'ifup eth0' },
+  { name: 'ifdown', description: 'Bring interface down', example: 'ifdown eth0' },
+  { name: 'ethtool', description: 'Display ethernet status', example: 'ethtool eth0' },
+  { name: 'ip addr add', description: 'Add IP to interface', example: 'ip addr add 192.168.1.2/24 dev eth0' },
+
+  // Compression and Archiving (5 new)
+  { name: 'tar -tvf', description: 'List tar archive contents', example: 'tar -tvf archive.tar' },
+  { name: 'zip -r', description: 'Create recursive zip', example: 'zip -r archive.zip dir' },
+  { name: 'gzip -d', description: 'Decompress gzip file', example: 'gzip -d file1.gz' },
+  { name: 'tar -cjvf', description: 'Create bzip2 tar archive', example: 'tar -cjvf archive.tar.bz2 dir' },
+  { name: 'tar -xjvf', description: 'Extract bzip2 tar archive', example: 'tar -xjvf archive.tar.bz2' },
+
+  // System Control (10 new)
+  { name: 'systemctl status', description: 'Show service status', example: 'systemctl status nginx' },
+  { name: 'systemctl enable', description: 'Enable service at boot', example: 'systemctl enable nginx' },
+  { name: 'systemctl disable', description: 'Disable service at boot', example: 'systemctl disable nginx' },
+  { name: 'journalctl -f', description: 'Follow system logs', example: 'journalctl -f' },
+  { name: 'shutdown -r', description: 'Reboot system', example: 'shutdown -r now' },
+  { name: 'mkswap', description: 'Set up swap area', example: 'mkswap /dev/sdb1' },
+  { name: 'partprobe', description: 'Inform OS of partition changes', example: 'partprobe' },
+  { name: 'hdparm', description: 'Get/set hard disk parameters', example: 'hdparm -t /dev/sda' },
+  { name: 'dmesg -T', description: 'Show kernel messages with timestamps', example: 'dmesg -T' },
+  { name: 'fsck -a', description: 'Auto-repair filesystem', example: 'fsck -a /dev/sda1' },
+
+  // Text Processing (15 new)
+  { name: 'grep -r', description: 'Search recursively', example: 'grep -r "error" /var/log' },
+  { name: 'grep -i', description: 'Case-insensitive search', example: 'grep -i "error" file1' },
+  { name: 'sed -i', description: 'Edit file in-place', example: 'sed -i s/old/new/g file1' },
+  { name: 'awk -F', description: 'Set field separator', example: 'awk -F: \'{print $1}\' file1' },
+  { name: 'sort -r', description: 'Reverse sort', example: 'sort -r file1' },
+  { name: 'uniq -i', description: 'Case-insensitive unique lines', example: 'uniq -i file1' },
+  { name: 'cut -c', description: 'Cut by character position', example: 'cut -c 1-10 file1' },
+  { name: 'tr -d', description: 'Delete characters', example: 'tr -d a-z < file1' },
+  { name: 'wc -w', description: 'Count words', example: 'wc -w file1' },
+  { name: 'wc -c', description: 'Count bytes', example: 'wc -c file1' },
+  { name: 'diff -y', description: 'Side-by-side diff', example: 'diff -y file1 file2' },
+  { name: 'comm -12', description: 'Show common lines', example: 'comm -12 file1 file2' },
+  { name: 'tee -a', description: 'Append to file', example: 'echo test | tee -a file1' },
+  { name: 'nl -b a', description: 'Number all lines', example: 'nl -b a file1' },
+  { name: 'strings -n', description: 'Set minimum string length', example: 'strings -n 10 file1' },
+
+  // User and Group Management (5 new)
+  { name: 'passwd -l', description: 'Lock user account', example: 'passwd -l user1' },
+  { name: 'passwd -u', description: 'Unlock user account', example: 'passwd -u user1' },
+  { name: 'chage', description: 'Change user password expiry', example: 'chage -E 2025-12-31 user1' },
+  { name: 'gpasswd', description: 'Administer group passwords', example: 'gpasswd group1' },
+  { name: 'id -u', description: 'Show user ID', example: 'id -u user1' },
+
+  // Package Management (5 new)
+  { name: 'apt upgrade', description: 'Upgrade installed packages', example: 'apt upgrade' },
+  { name: 'apt autoremove', description: 'Remove unused packages', example: 'apt autoremove' },
+  { name: 'dnf remove', description: 'Remove package with DNF', example: 'dnf remove git' },
+  { name: 'zypper up', description: 'Update with Zypper', example: 'zypper up' },
+  { name: 'pacman -R', description: 'Remove with Pacman', example: 'pacman -R htop' },
+
+  // Miscellaneous Utilities (10 new)
+  { name: 'watch -n', description: 'Run command at intervals', example: 'watch -n 1 date' },
+  { name: 'tee -i', description: 'Ignore interrupts', example: 'echo test | tee -i file1' },
+  { name: 'bc -l', description: 'Calculator with math library', example: 'bc -l' },
+  { name: 'cal -y', description: 'Show yearly calendar', example: 'cal -y' },
+  { name: 'history -c', description: 'Clear command history', example: 'history -c' },
+  { name: 'alias -p', description: 'Print all aliases', example: 'alias -p' },
+  { name: 'env -i', description: 'Run in clean environment', example: 'env -i command' },
+  { name: 'which -a', description: 'Show all paths for executable', example: 'which -a ls' },
+  { name: 'sleep -s', description: 'Sleep in seconds', example: 'sleep 5s' },
+  { name: 'xargs -n', description: 'Limit arguments per command', example: 'echo file1 | xargs -n 1 rm' },
 ];
 
 export default function Commands() {
@@ -271,30 +391,35 @@ export default function Commands() {
   );
 
   return (
-    <SafeAreaView className="flex-1 bg-blue-900">
+    <SafeAreaView className="flex-1 bg-gray-900">
       <View className="flex-1 px-4">
         <Text className="text-white text-3xl font-bold mb-4 mt-6">Linux Commands</Text>
-        <View className="flex-row items-center bg-white rounded-lg px-4 py-3 mb-6">
+        <View className="flex-row items-center bg-gray-800 rounded-lg px-4 py-3 mb-6">
           <Ionicons name="search" size={24} color="#6b7280" />
           <TextInput
-            className="flex-1 ml-2 text-black text-xl"
+            className="flex-1 ml-2 text-white text-xl"
             placeholder="Search commands..."
-            placeholderTextColor="#6b7280"
+            placeholderTextColor="#a1a1aa"
             value={search}
             onChangeText={setSearch}
           />
         </View>
         <FlatList
           data={filteredCommands}
-          keyExtractor={(item) => item.name}
+          keyExtractor={(item, index) => item.name + index}
           renderItem={({ item }) => (
-            <View className="bg-blue-800 p-4 rounded-lg mb-4">
+            <View className="bg-blue-800 p-4 rounded-lg mb-3">
               <Text className="text-white text-xl font-bold mb-2">{item.name}</Text>
               <Text className="text-white text-lg mb-2">{item.description}</Text>
-              <Text className="text-blue-300 text-lg">Example: {item.example}</Text>
+              <Text className="text-gray-300 text-lg">Example: {item.example}</Text>
             </View>
           )}
-          ListEmptyComponent={<Text className="text-white text-lg text-center">No commands found</Text>}
+          ListEmptyComponent={
+            <Text className="text-green-200 font-bold text-xl text-center mb-3">
+              The command you entered wasn&apos;t found
+            </Text>
+          }
+          contentContainerStyle={{ paddingBottom: 80 }} // Add padding to avoid Navbar overlap
         />
         <StatusBar style="light" />
       </View>
