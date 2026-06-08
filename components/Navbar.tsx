@@ -1,38 +1,52 @@
-import { View, TouchableOpacity, Text } from 'react-native';
-import { router } from 'expo-router';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons } from "@expo/vector-icons"
+import { usePathname, useRouter } from "expo-router"
+import { Text, TouchableOpacity, View } from "react-native"
+
+type NavItem = {
+  label: string
+  icon: keyof typeof Ionicons.glyphMap
+  activeIcon: keyof typeof Ionicons.glyphMap
+  route: string
+}
+
+const NAV_ITEMS: NavItem[] = [
+  { label: "Commands", icon: "terminal-outline", activeIcon: "terminal", route: "/commands" },
+  { label: "Quiz", icon: "bulb-outline", activeIcon: "bulb", route: "/quiz" },
+  { label: "Daily", icon: "calendar-outline", activeIcon: "calendar", route: "/daily" },
+]
 
 export default function Navbar() {
+  const router = useRouter()
+  const pathname = usePathname()
+
   return (
-    <View className="flex-row justify-around items-center w-full bg-blue-900 p-3 h-16 border-t border-blue-700">
-      <TouchableOpacity 
-        className="flex-1 items-center"
-        onPress={() => router.push('/')}
-      >
-        <Ionicons name="home" size={24} color="white" />
-        <Text className="text-white text-center text-sm mt-1">Home</Text>
-      </TouchableOpacity>
-      <TouchableOpacity 
-        className="flex-1 items-center"
-        onPress={() => router.push('/features')}
-      >
-        <Ionicons name="bulb-outline" size={24} color="white" />
-        <Text className="text-white text-center text-sm mt-1">Features</Text>
-      </TouchableOpacity>
-      <TouchableOpacity 
-        className="flex-1 items-center"
-        onPress={() => router.push('/contact')}
-      >
-        <Ionicons name="mail" size={24} color="white" />
-        <Text className="text-white text-center text-sm mt-1">Contact</Text>
-      </TouchableOpacity>
-      <TouchableOpacity 
-        className="flex-1 items-center"
-        onPress={() => router.push('/services')}
-      >
-        <Ionicons name="construct" size={24} color="white" />
-        <Text className="text-white text-center text-sm mt-1">Services</Text>
-      </TouchableOpacity>
+    <View className="flex-row justify-around items-center w-full bg-black border-t border-green-500/30 pb-2 pt-3">
+      {NAV_ITEMS.map((item) => {
+        const isActive = pathname === item.route
+        return (
+          <TouchableOpacity
+            key={item.route}
+            className="flex-1 items-center gap-1"
+            onPress={() => router.push(item.route as any)}
+            activeOpacity={0.7}
+          >
+            <Ionicons
+              name={isActive ? item.activeIcon : item.icon}
+              size={22}
+              color={isActive ? "#22c55e" : "#4b5563"}
+            />
+            <Text
+              className="text-xs font-medium"
+              style={{ color: isActive ? "#22c55e" : "#4b5563" }}
+            >
+              {item.label}
+            </Text>
+            {isActive && (
+              <View className="w-1 h-1 rounded-full bg-green-500 mt-0.5" />
+            )}
+          </TouchableOpacity>
+        )
+      })}
     </View>
-  );
+  )
 }

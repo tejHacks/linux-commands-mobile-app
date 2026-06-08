@@ -60,7 +60,7 @@ export default function Services() {
               className="bg-blue-700 w-full max-w-md h-14 px-10 rounded-lg mb-10 items-center justify-center"
               onPress={sendEmail}
             >
-              <Text className="text-white text-xl font-semibold">Send Request to olateju202@gmail.com</Text>
+              <Text className="text-white text-xl font-semibold">Send Request</Text>
             </TouchableOpacity>
           </View>
         </ScrollView>
