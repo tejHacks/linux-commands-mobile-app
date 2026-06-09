@@ -14,6 +14,10 @@
     "Permissions",
     "Process",
     "Text",
+    "Package",
+    "Archives",
+    "Disk",
+    "Environment",
   ];
 
   export const commands: Command[] = [
@@ -337,4 +341,39 @@
     { id: "283", command: "awk '{gsub(/foo/, \"bar\"); print}' file.txt", description: "Replace text in each line using awk", example: "awk '{gsub(/foo/, \"bar\"); print}' file.txt", category: "Text" },
     { id: "284", command: "python3 -c 'import sys; print(sys.stdin.read())' < file.txt", description: "Read file contents from stdin with Python", example: "python3 -c 'import sys; print(sys.stdin.read())' < file.txt", category: "Text" },
     { id: "285", command: "cut -d',' -f1 data.csv", description: "Extract the first column from a CSV file", example: "cut -d',' -f1 data.csv", category: "Text" },
+
+    // Package Management
+    { id: "286", command: "apt update", description: "Update package list", example: "sudo apt update", category: "Package" },
+    { id: "287", command: "apt upgrade", description: "Upgrade all packages", example: "sudo apt upgrade", category: "Package" },
+    { id: "288", command: "apt install", description: "Install a package", example: "sudo apt install vim", category: "Package" },
+    { id: "289", command: "apt remove", description: "Remove a package", example: "sudo apt remove vim", category: "Package" },
+    { id: "290", command: "apt search", description: "Search for a package", example: "apt search nginx", category: "Package" },
+    { id: "291", command: "dpkg -l", description: "List all installed packages", example: "dpkg -l", category: "Package" },
+    { id: "292", command: "snap install", description: "Install a snap package", example: "snap install code", category: "Package" },
+
+    // Archives
+    { id: "293", command: "tar -czf", description: "Create a compressed tar archive", example: "tar -czf archive.tar.gz folder/", category: "Archives" },
+    { id: "294", command: "tar -xzf", description: "Extract a compressed tar archive", example: "tar -xzf archive.tar.gz", category: "Archives" },
+    { id: "295", command: "zip", description: "Compress files into a zip archive", example: "zip archive.zip file.txt", category: "Archives" },
+    { id: "296", command: "unzip", description: "Extract a zip archive", example: "unzip archive.zip", category: "Archives" },
+    { id: "297", command: "gzip", description: "Compress a file with gzip", example: "gzip file.txt", category: "Archives" },
+    { id: "298", command: "gunzip", description: "Decompress a gzip file", example: "gunzip file.txt.gz", category: "Archives" },
+
+    // Disk
+    { id: "299", command: "du -sh", description: "Show size of a directory", example: "du -sh /var/log", category: "Disk" },
+    { id: "300", command: "lsblk", description: "List all block devices", example: "lsblk", category: "Disk" },
+    { id: "301", command: "mount", description: "Mount a filesystem", example: "mount /dev/sdb1 /mnt", category: "Disk" },
+    { id: "302", command: "umount", description: "Unmount a filesystem", example: "umount /mnt", category: "Disk" },
+    { id: "303", command: "fdisk -l", description: "List disk partitions", example: "sudo fdisk -l", category: "Disk" },
+    { id: "304", command: "mkfs.ext4", description: "Format a partition as ext4", example: "mkfs.ext4 /dev/sdb1", category: "Disk" },
+
+    // Environment
+    { id: "305", command: "export", description: "Set an environment variable", example: "export PATH=$PATH:/usr/local/bin", category: "Environment" },
+    { id: "306", command: "env", description: "Show all environment variables", example: "env", category: "Environment" },
+    { id: "307", command: "printenv", description: "Print a specific env variable", example: "printenv HOME", category: "Environment" },
+    { id: "308", command: "alias", description: "Create a command alias", example: "alias ll='ls -la'", category: "Environment" },
+    { id: "309", command: "unset", description: "Remove an environment variable", example: "unset MY_VAR", category: "Environment" },
+    { id: "310", command: "source", description: "Execute commands from a file", example: "source ~/.bashrc", category: "Environment" },
+    { id: "311", command: "history", description: "Show command history", example: "history", category: "Environment" },
+    { id: "312", command: "which", description: "Show full path of a command", example: "which python3", category: "Environment" },
   ];

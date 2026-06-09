@@ -9,7 +9,6 @@ const TYPED_TEXT = 'terminal-master';
 export default function Index() {
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const slideAnim = useRef(new Animated.Value(40)).current;
-  const cursorAnim = useRef(new Animated.Value(1)).current;
   const [typedIndex, setTypedIndex] = useState(0);
   const [showCursor, setShowCursor] = useState(true);
 
