@@ -4,13 +4,14 @@
     "slug": "learn-app",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/download.png",
+    "icon": "./assets/images/logo.png",
     "scheme": "learnapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.tejcodes.learnapp"
+      "bundleIdentifier": "com.tejcodes.linuxlearnapp",
+      "buildNumber": "1.0.0"
     },
     "android": {
       "adaptiveIcon": {
@@ -19,11 +20,11 @@
         "monochromeImage": "./assets/images/android-icon-monochrome.png",
         "backgroundColor": "#E6F4FE"
       },
-      "package": "com.tejcodes.learnapp",
+      "package": "com.tejcodes.linuxlearnapp",
       "versionCode": 1
     },
     "web": {
-      "favicon": "./assets/images/favicon.png"
+      "favicon": "./assets/images/logo.png"
     },
     "plugins": [
       "expo-router"
